@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
@@ -6,8 +6,11 @@ import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 
+const NETLIFY_FORM_NAME = "portfolio-contact";
+
+const encodeFormData = (data) => new URLSearchParams(data).toString();
+
 const Contact = () => {
-  const formRef = useRef();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -16,7 +19,6 @@ const Contact = () => {
 
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
-  const contactEmail = import.meta.env.VITE_APP_CONTACT_EMAIL || "";
 
   const handleChange = (e) => {
     const { target } = e;
@@ -28,38 +30,38 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus("");
 
-    const subject = encodeURIComponent(`Portfolio message from ${form.name}`);
-    const body = encodeURIComponent(
-      [`Name: ${form.name}`, `Email: ${form.email}`, "", form.message].join(
-        "\n"
-      )
-    );
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodeFormData({
+          "form-name": NETLIFY_FORM_NAME,
+          "bot-field": "",
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      });
 
-    if (contactEmail) {
-      window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
-      setStatus("Opening your email app with the message ready to send.");
-    } else {
-      const preparedMessage = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`;
-      navigator.clipboard
-        ?.writeText(preparedMessage)
-        .then(() => {
-          setStatus(
-            "Message copied. Use the contact details on my resume to send it."
-          );
-        })
-        .catch(() => {
-          setStatus(
-            "Message prepared. Use the contact details on my resume to send it."
-          );
-        });
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      setForm({ name: "", email: "", message: "" });
+      setStatus("Thanks. Your message was sent.");
+    } catch (error) {
+      console.error(error);
+      setStatus(
+        "Something went wrong. Please email me at armond.guze@yahoo.com."
+      );
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -74,10 +76,19 @@ const Contact = () => {
         <h3 className={styles.sectionHeadText}>Contact.</h3>
 
         <form
-          ref={formRef}
+          name={NETLIFY_FORM_NAME}
+          method='POST'
+          data-netlify='true'
+          data-netlify-honeypot='bot-field'
           onSubmit={handleSubmit}
           className='mt-12 flex flex-col gap-8'
         >
+          <input type='hidden' name='form-name' value={NETLIFY_FORM_NAME} />
+          <p className='hidden'>
+            <label>
+              Do not fill this out: <input name='bot-field' />
+            </label>
+          </p>
           <label className='flex flex-col'>
             <span className='text-white font-medium mb-4'>Your Name</span>
             <input
@@ -117,9 +128,10 @@ const Contact = () => {
 
           <button
             type='submit'
-            className='bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary'
+            disabled={loading}
+            className='bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary disabled:cursor-not-allowed disabled:opacity-70'
           >
-            {loading ? "Preparing..." : "Prepare Message"}
+            {loading ? "Sending..." : "Send Message"}
           </button>
 
           {status && (

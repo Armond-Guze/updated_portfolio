@@ -2,20 +2,19 @@ import { motion } from "framer-motion";
 
 import { styles } from "../styles";
 import { profile } from "../constants";
-import { ComputersCanvas } from "./canvas";
 
 const Hero = () => {
   return (
-    <section className='relative mx-auto h-screen w-full overflow-hidden'>
+    <section className='relative mx-auto flex min-h-[760px] w-full items-center overflow-hidden pt-20 sm:min-h-screen'>
       <div
-        className={`absolute inset-0 top-[120px] z-10 mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5`}
+        className={`relative z-10 mx-auto w-full max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5`}
       >
         <div className='flex flex-col justify-center items-center mt-5'>
           <div className='w-5 h-5 rounded-full bg-[#915EFF]' />
-          <div className='w-1 sm:h-80 h-40 violet-gradient' />
+          <div className='w-1 sm:h-80 h-56 violet-gradient' />
         </div>
 
-        <div>
+        <div className='max-w-5xl'>
           <h1 className={`${styles.heroHeadText} text-white`}>
             Hi, I am <span className='text-[#915EFF]'>{profile.name}</span>
           </h1>
@@ -39,11 +38,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className='pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[48vh] min-h-[320px] sm:h-[54vh] lg:h-[60vh]'>
-        <ComputersCanvas />
-      </div>
-
-      <div className='absolute xs:bottom-10 bottom-32 z-20 w-full flex justify-center items-center'>
+      <div className='absolute bottom-10 z-20 w-full flex justify-center items-center'>
         <a href='#about'>
           <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
             <motion.div

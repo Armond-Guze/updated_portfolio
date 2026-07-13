@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { styles } from "../styles";
-import { navLinks } from "../constants";
+import { navLinks, profile } from "../constants";
 import { logo, menu, close } from "../assets";
 
 const Navbar = () => {
@@ -42,10 +42,13 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt='logo' className='w-9 h-9 object-contain' />
+          <img
+            src={logo}
+            alt={`${profile.name} logo`}
+            className='w-9 h-9 object-contain'
+          />
           <p className='text-white text-[18px] font-bold cursor-pointer flex '>
-            Armond Guze &nbsp;
-            
+            {profile.name}
           </p>
         </Link>
 
@@ -64,12 +67,18 @@ const Navbar = () => {
         </ul>
 
         <div className='sm:hidden flex flex-1 justify-end items-center'>
-          <img
-            src={toggle ? close : menu}
-            alt='menu'
-            className='w-[28px] h-[28px] object-contain'
+          <button
+            type='button'
+            aria-label='Toggle navigation menu'
             onClick={() => setToggle(!toggle)}
-          />
+            className='flex h-10 w-10 items-center justify-center'
+          >
+            <img
+              src={toggle ? close : menu}
+              alt=''
+              className='w-[28px] h-[28px] object-contain'
+            />
+          </button>
 
           <div
             className={`${

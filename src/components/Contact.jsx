@@ -1,6 +1,5 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
 
 import { styles } from "../styles";
 import { EarthCanvas } from "./canvas";
@@ -16,6 +15,8 @@ const Contact = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+  const contactEmail = import.meta.env.VITE_APP_CONTACT_EMAIL || "";
 
   const handleChange = (e) => {
     const { target } = e;
@@ -30,38 +31,35 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    setStatus("");
 
-    emailjs
-      .send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: form.name,
-          to_name: "JavaScript Mastery",
-          from_email: form.email,
-          to_email: "sujata@jsmastery.pro",
-          message: form.message,
-        },
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+    const subject = encodeURIComponent(`Portfolio message from ${form.name}`);
+    const body = encodeURIComponent(
+      [`Name: ${form.name}`, `Email: ${form.email}`, "", form.message].join(
+        "\n"
       )
-      .then(
-        () => {
-          setLoading(false);
-          alert("Thank you. I will get back to you as soon as possible.");
+    );
 
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
-        },
-        (error) => {
-          setLoading(false);
-          console.error(error);
+    if (contactEmail) {
+      window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+      setStatus("Opening your email app with the message ready to send.");
+    } else {
+      const preparedMessage = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`;
+      navigator.clipboard
+        ?.writeText(preparedMessage)
+        .then(() => {
+          setStatus(
+            "Message copied. Use the contact details on my resume to send it."
+          );
+        })
+        .catch(() => {
+          setStatus(
+            "Message prepared. Use the contact details on my resume to send it."
+          );
+        });
+    }
 
-          alert("Ahh, something went wrong. Please try again.");
-        }
-      );
+    setLoading(false);
   };
 
   return (
@@ -87,7 +85,8 @@ const Contact = () => {
               name='name'
               value={form.name}
               onChange={handleChange}
-              placeholder="What's your good name?"
+              placeholder='Your name'
+              required
               className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
@@ -98,7 +97,8 @@ const Contact = () => {
               name='email'
               value={form.email}
               onChange={handleChange}
-              placeholder="What's your web address?"
+              placeholder='your.email@example.com'
+              required
               className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
@@ -109,7 +109,8 @@ const Contact = () => {
               name='message'
               value={form.message}
               onChange={handleChange}
-              placeholder='What you want to say?'
+              placeholder='Tell me about the opportunity or project.'
+              required
               className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
@@ -118,8 +119,14 @@ const Contact = () => {
             type='submit'
             className='bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary'
           >
-            {loading ? "Sending..." : "Send"}
+            {loading ? "Preparing..." : "Prepare Message"}
           </button>
+
+          {status && (
+            <p className='text-secondary text-[14px] leading-[24px]'>
+              {status}
+            </p>
+          )}
         </form>
       </motion.div>
 

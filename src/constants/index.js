@@ -15,15 +15,20 @@ import {
     git,
     figma,
     docker,
-    meta,
-    starbucks,
-    tesla,
-    shopify,
     carrent,
     jobit,
     tripguide,
     threejs,
   } from "../assets";
+
+  export const profile = {
+    name: "Armond Guze",
+    role: "Software Developer",
+    headline:
+      "I build responsive React interfaces, interactive web experiences, and polished applications that are easy to use.",
+    summary:
+      "I am a software developer focused on clean front-end experiences, practical full-stack foundations, and thoughtful product details. I enjoy turning ideas into responsive interfaces, organizing code so it is easy to maintain, and using modern tools like React, Tailwind CSS, Node.js, and Three.js to build work that feels complete.",
+  };
   
   export const navLinks = [
     {
@@ -31,8 +36,16 @@ import {
       title: "About",
     },
     {
-      id: "work",
-      title: "Work",
+      id: "skills",
+      title: "Skills",
+    },
+    {
+      id: "experience",
+      title: "Experience",
+    },
+    {
+      id: "projects",
+      title: "Projects",
     },
     {
       id: "contact",
@@ -42,19 +55,19 @@ import {
   
   const services = [
     {
-      title: "Web Developer",
+      title: "Frontend Development",
       icon: web,
     },
     {
-      title: "React Native Developer",
+      title: "Responsive Interfaces",
       icon: mobile,
     },
     {
-      title: "Backend Developer",
+      title: "Backend Foundations",
       icon: backend,
     },
     {
-      title: "Content Creator",
+      title: "Product Thinking",
       icon: creator,
     },
   ];
@@ -116,98 +129,76 @@ import {
   
   const experiences = [
     {
-      title: "React.js Developer",
-      company_name: "Starbucks",
-      icon: starbucks,
+      title: "Portfolio Website",
+      company_name: "Personal Project",
+      icon: web,
       iconBg: "#383E56",
-      date: "March 2020 - April 2021",
+      date: "2026",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Built a polished React and Vite portfolio with animated sections, reusable content data, and responsive layouts.",
+        "Integrated Three.js canvases and optimized the project structure so 3D assets load correctly in production.",
+        "Reworked template content into resume-ready copy with clear sections for skills, projects, and contact.",
       ],
     },
     {
-      title: "React Native Developer",
-      company_name: "Tesla",
-      icon: tesla,
+      title: "Frontend Interface Work",
+      company_name: "Project Practice",
+      icon: mobile,
       iconBg: "#E6DEDD",
-      date: "Jan 2021 - Feb 2022",
+      date: "2025 - Present",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Created component-based interfaces with React, Tailwind CSS, and modern JavaScript.",
+        "Focused on mobile-friendly layouts, accessible navigation, and visual polish across breakpoints.",
+        "Used reusable data structures to keep project content easy to update for resumes and interviews.",
       ],
     },
     {
-      title: "Web Developer",
-      company_name: "Shopify",
-      icon: shopify,
+      title: "Full-Stack Foundations",
+      company_name: "Independent Learning",
+      icon: backend,
       iconBg: "#383E56",
-      date: "Jan 2022 - Jan 2023",
+      date: "Ongoing",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "Full stack Developer",
-      company_name: "Meta",
-      icon: meta,
-      iconBg: "#E6DEDD",
-      date: "Jan 2023 - Present",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Practiced connecting front-end experiences to server-side concepts with Node.js and database-driven data models.",
+        "Built familiarity with Git workflows, package management, deployment builds, and production troubleshooting.",
+        "Kept implementation choices practical, readable, and aligned with real user workflows.",
       ],
     },
   ];
   
-  const testimonials = [
+  const highlights = [
     {
-      testimonial:
-        "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
-      name: "Sara Lee",
-      designation: "CFO",
-      company: "Acme Co",
-      image: "https://randomuser.me/api/portraits/women/4.jpg",
+      title: "Clean UI Engineering",
+      description:
+        "Builds interfaces that balance visual polish with readable structure and responsive behavior.",
+      detail: "React, Tailwind CSS, component design",
     },
     {
-      testimonial:
-        "I've never met a web developer who truly cares about their clients' success like Rick does.",
-      name: "Chris Brown",
-      designation: "COO",
-      company: "DEF Corp",
-      image: "https://randomuser.me/api/portraits/men/5.jpg",
+      title: "Interactive Web Work",
+      description:
+        "Comfortable using motion, 3D canvases, and thoughtful micro-interactions without losing usability.",
+      detail: "Three.js, Framer Motion, Vite",
     },
     {
-      testimonial:
-        "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
-      name: "Lisa Wang",
-      designation: "CTO",
-      company: "456 Enterprises",
-      image: "https://randomuser.me/api/portraits/women/6.jpg",
+      title: "Resume-Ready Delivery",
+      description:
+        "Keeps projects organized, buildable, and easy to present during applications or interviews.",
+      detail: "Git, production builds, clear documentation",
     },
   ];
   
   const projects = [
     {
-      name: "Car Rent",
+      name: "3D Developer Portfolio",
       description:
-        "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+        "A responsive portfolio built with React, Tailwind CSS, Framer Motion, and Three.js to present skills, project work, and contact details in one resume-friendly site.",
       tags: [
         {
           name: "react",
           color: "blue-text-gradient",
         },
         {
-          name: "mongodb",
+          name: "threejs",
           color: "green-text-gradient",
         },
         {
@@ -216,40 +207,40 @@ import {
         },
       ],
       image: carrent,
-      source_code_link: "https://github.com/",
+      source_code_link: "",
     },
     {
-      name: "Job IT",
+      name: "Job Search Interface",
       description:
-        "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+        "A front-end concept for browsing opportunities, comparing role details, and organizing job-search information in a clean dashboard-style layout.",
       tags: [
         {
           name: "react",
           color: "blue-text-gradient",
         },
         {
-          name: "restapi",
+          name: "ui",
           color: "green-text-gradient",
         },
         {
-          name: "scss",
+          name: "dashboard",
           color: "pink-text-gradient",
         },
       ],
       image: jobit,
-      source_code_link: "https://github.com/",
+      source_code_link: "",
     },
     {
-      name: "Trip Guide",
+      name: "Travel Planning UI",
       description:
-        "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+        "A visual planning experience for organizing destinations, recommendations, and trip details with a strong focus on responsive layout and content clarity.",
       tags: [
         {
-          name: "nextjs",
+          name: "frontend",
           color: "blue-text-gradient",
         },
         {
-          name: "supabase",
+          name: "tailwind",
           color: "green-text-gradient",
         },
         {
@@ -258,9 +249,9 @@ import {
         },
       ],
       image: tripguide,
-      source_code_link: "https://github.com/",
+      source_code_link: "",
     },
   ];
   
-  export { services, technologies, experiences, testimonials, projects };
+  export { services, technologies, experiences, highlights, projects };
   
